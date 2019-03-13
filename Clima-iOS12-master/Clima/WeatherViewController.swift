@@ -7,20 +7,18 @@
 //
 
 import UIKit
-import CoreLocation
 
 
-class WeatherViewController: UIViewController, CLLocationManagerDelegate {
+class WeatherViewController: UIViewController {
     
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
-//    let APP_ID = "e72ca729af228beabd5d20e3b7749713"
-    let APP_ID = "7148ff91179c23be9fc30f3e2136e044"     // my ID
+    let APP_ID = "e72ca729af228beabd5d20e3b7749713"
     /***Get your own App ID at https://openweathermap.org/appid ****/
     
 
     //TODO: Declare instance variables here
-    let locationManager = CLLocationManager()
+    
 
     
     //Pre-linked IBOutlets
@@ -34,10 +32,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         
         
         //TODO:Set up the location manager here.
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+    
         
         
     }
@@ -81,30 +76,11 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     
     //Write the didUpdateLocations method here:
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[locations.count - 1]
-        // if you get a valid location, then stop updating location, save battery
-        if location.horizontalAccuracy > 0 {
-            locationManager.stopUpdatingLocation()
-            print("locations array count: \t \(locations.count)")
-            print("horizontal accuracy: \t \(location.horizontalAccuracy)")
-            print("longitude = \(location.coordinate.longitude), latitiude = \(location.coordinate.latitude)")
-            
-            let latitude = String(location.coordinate.latitude)
-            let longitude = String(location.coordinate.longitude)
-            // make dictionary of lat/long data, ready for packaging to send to openWeatherMap API
-            let params : [String : String] = ["lat" : latitude, "lon" : longitude, "appid" : APP_ID]
-            
-        }
-        
-    }
+    
     
     
     //Write the didFailWithError method here:
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-        cityLabel.text = "Location Unavailable"
-    }
+    
     
     
 
